@@ -8,6 +8,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.danny.bookexplorer.api.ElasticAPI;
 import com.danny.bookexplorer.model.Book;
 import com.danny.bookexplorer.model.BookSource;
+import com.danny.bookexplorer.model.SearchResult;
+
+import java.util.List;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,6 +24,8 @@ public class BookNetworkDataSource {
     private final MutableLiveData<BookSource> _downloadBookDetailsResponse = new MutableLiveData<BookSource>();
     private final MutableLiveData<NetworkState> _networkState = new MutableLiveData<NetworkState>();
 
+    private final MutableLiveData<SearchResult> _searchResult = new MutableLiveData<SearchResult>();
+
 
     public BookNetworkDataSource(ElasticAPI elasticAPI, CompositeDisposable compositeDisposable) {
         this.elasticAPI = elasticAPI;
@@ -33,6 +38,39 @@ public class BookNetworkDataSource {
 
     public MutableLiveData<BookSource> downloadBookDetailsResponse() {
         return _downloadBookDetailsResponse;
+    }
+
+    public MutableLiveData<SearchResult> searchResult() {
+        return _searchResult;
+    }
+
+    public void searchBooks(String query){
+        _networkState.postValue(NetworkState.LOADING);
+
+        try {
+            compositeDisposable.add(
+                    elasticAPI.searchBooks(query)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    searchResult -> {
+
+                                        _searchResult.postValue(searchResult);
+                                        _networkState.postValue(NetworkState.LOADED);
+
+                                    },
+                                    throwable -> {
+                                        Log.e("BookDetailsDataSource", throwable.getMessage());
+                                        _networkState.postValue(NetworkState.ERROR);
+                                    }
+                            )
+            );
+        }catch (Exception e){
+            _networkState.postValue(new NetworkState(NetworkState.Status.FAILED, "Something went wrong"));
+            Log.e("BookDetailsDataSource", e.getMessage());
+        }
+
+
     }
 
     public void fetchBookDetails(String bookID){

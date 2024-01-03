@@ -35,7 +35,7 @@ public class BookViewModel extends ViewModel {
     }
 
     public LiveData<NetworkState> getNetworkState(){
-        return bookDetailsRepository.getMovieDetailsNetworkState();
+        return bookDetailsRepository.getBookDetailsNetworkState();
     }
 
     @Override
