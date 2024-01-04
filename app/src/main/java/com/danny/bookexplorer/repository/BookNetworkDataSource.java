@@ -45,6 +45,7 @@ public class BookNetworkDataSource {
     }
 
     public void searchBooks(String query){
+
         _networkState.postValue(NetworkState.LOADING);
 
         try {
@@ -54,20 +55,18 @@ public class BookNetworkDataSource {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     searchResult -> {
-                                        Log.d("BookNetworkDataSource", "Search Result: " + searchResult.toString());
                                         _searchResult.postValue(searchResult);
                                         _networkState.postValue(NetworkState.LOADED);
-
                                     },
                                     throwable -> {
-                                        Log.e("BookDetailsDataSource", throwable.getMessage());
+                                        Log.e("BookDetailsDataSource","Error: " + throwable.getMessage());
                                         _networkState.postValue(NetworkState.ERROR);
                                     }
                             )
             );
         }catch (Exception e){
             _networkState.postValue(new NetworkState(NetworkState.Status.FAILED, "Something went wrong"));
-            Log.e("BookDetailsDataSource", e.getMessage());
+            Log.e("BookDetailsDataSource", "Loi: "+query +e.getMessage());
         }
 
 

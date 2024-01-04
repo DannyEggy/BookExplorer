@@ -17,5 +17,6 @@ public interface ElasticAPI {
     );
 
     @GET("books/_search")
-    Single<SearchResult> searchBooks(@Query("q") String query);
+    Single<SearchResult> searchBooks(
+            @Query("q") String query);
 }

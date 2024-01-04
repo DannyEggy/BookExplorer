@@ -27,9 +27,13 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        });
 
-        activityMainBinding.btn.setOnClickListener((View view)->{
+
+
+
+        activityMainBinding.btnSearch.setOnClickListener((View view)->{
+            String query = activityMainBinding.etSearch.getText().toString();
             Intent intent = new Intent(this, SearchResultBooks.class);
-            intent.putExtra("query", "Harry Potter");
+            intent.putExtra("query", query);
             startActivity(intent);
         });
     }

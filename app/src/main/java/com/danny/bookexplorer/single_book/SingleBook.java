@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.danny.bookexplorer.R;
@@ -31,6 +32,11 @@ public class SingleBook extends AppCompatActivity {
         binding = ActivitySingleBookBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setSupportActionBar(binding.toolbarSingleBook);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         Intent intent = getIntent();
         bookID = intent.getStringExtra("id");
 
@@ -38,9 +44,7 @@ public class SingleBook extends AppCompatActivity {
         bookDetailsRepository = new BookDetailsRepository(elasticAPI);
 
         bookViewModel = getBookViewModel(bookID);
-        bookViewModel.getBookDetails().observe(this, book -> {
-            bindUI(book);
-        });
+        bookViewModel.getBookDetails().observe(this, this::bindUI);
 
         bookViewModel.getNetworkState().observe(this, networkState -> {
             int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
@@ -49,6 +53,16 @@ public class SingleBook extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void bindUI(BookSource book) {
 

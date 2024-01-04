@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class SearchResultViewModel extends ViewModel {
     private ResultDetailsRepository resultDetailsRepository;
-    private CompositeDisposable compositeDisposable;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private String query;
 
     public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, String query) {

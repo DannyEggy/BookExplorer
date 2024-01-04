@@ -1,18 +1,19 @@
 package com.danny.bookexplorer.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class Hits {
     @SerializedName("hits")
-    private List<BookSource> hitList;
+    private List<Hit> hits;
 
-    public List<BookSource> getHitList() {
-        return hitList;
+    // Các phương thức getter và setter ở đây
+
+    public List<Hit> getHits() {
+        return hits;
     }
 
-    public void setHitList(List<BookSource> hitList) {
-        this.hitList = hitList;
+    public void setHits(List<Hit> hits) {
+        this.hits = hits;
     }
 }
