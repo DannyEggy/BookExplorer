@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:layout_margin="5dp">
 
     <androidx.cardview.widget.CardView
@@ -31,6 +31,8 @@
                 android:layout_gravity="center"
                 android:text="The Complete Harry Potter Collection"
                 android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textSize="18sp"
                 />
         </LinearLayout>

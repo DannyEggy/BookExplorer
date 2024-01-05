@@ -44,6 +44,7 @@
             app:boxCornerRadiusBottomEnd="0dp"
             app:boxCornerRadiusTopStart="16dp"
             app:boxStrokeColor="?attr/colorPrimary"
+
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="2dp"
             android:animateLayoutChanges="true"
@@ -66,8 +67,8 @@
             android:id="@+id/btn_search"
             android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
-            android:layout_height="50.1dp"
-            android:layout_marginTop="4.4dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5.3dp"
             android:background="@drawable/rectangular_button_background"
             android:text="Search" />
     </RelativeLayout>
