@@ -6,7 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="BookExplorer"
+        android:textSize="48sp"
+        android:textColor="?attr/colorPrimary"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/search_bar"/>
+
+    <TextView
+        android:id="@+id/app_tag_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="This app use ElasticSearch and Google Books APIs"
+        android:textSize="12sp"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"/>
+
+
     <RelativeLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
