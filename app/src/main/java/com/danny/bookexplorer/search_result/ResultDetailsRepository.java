@@ -29,6 +29,12 @@ public class ResultDetailsRepository {
         return bookNetworkDataSource.searchResult();
     }
 
+    public MutableLiveData<SearchResult> fetchHybridSearchResult(String query, String knnField, String knnQueryVector, CompositeDisposable compositeDisposable){
+        bookNetworkDataSource = new BookNetworkDataSource(elasticAPI, compositeDisposable);
+        bookNetworkDataSource.hybridSearch(query, knnField, knnQueryVector);
+        return bookNetworkDataSource.searchResult();
+    }
+
     public LiveData<NetworkState> getResultDetailsNetworkState(){
         return bookNetworkDataSource.networkState();
     }

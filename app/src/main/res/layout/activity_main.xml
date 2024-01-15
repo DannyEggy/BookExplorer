@@ -73,6 +73,14 @@
             android:text="Search" />
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/hybrid_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar"
+        android:layout_centerHorizontal="true"
+        android:text="Use HybridSearch"/>
+
     <ProgressBar
         android:id="@+id/progress_bar_popular"
         android:layout_width="wrap_content"

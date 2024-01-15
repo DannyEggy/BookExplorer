@@ -29,6 +29,9 @@ public class SearchResultBooks extends AppCompatActivity {
     private ActivitySearchResultBooksBinding binding;
     private ResultDetailsRepository detailsRepository;
     private String query;
+
+    private String knnField;
+    private String knnQueryVector;
     private SearchResultViewModel viewModel;
     private List<Hit> hitList;
 
@@ -92,4 +95,16 @@ public class SearchResultBooks extends AppCompatActivity {
             }
         }).get(SearchResultViewModel.class);
     }
+
+    public SearchResultViewModel getHybridSearchResultViewModel(String query, String knnField, String knnQueryVector) {
+        return new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @SuppressWarnings("unchecked")
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new SearchResultViewModel(detailsRepository, query,);
+            }
+        }).get(SearchResultViewModel.class);
+    }
+
 }

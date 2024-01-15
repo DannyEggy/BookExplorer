@@ -19,4 +19,16 @@ public interface ElasticAPI {
     @GET("books/_search")
     Single<SearchResult> searchBooks(
             @Query("q") String query);
+
+    @GET("books/_search")
+    Single<SearchResult> hybridSearch(
+            @Query("q") String query,
+            @Query("knn.field") String knnField,
+            @Query("knn.query_vector") String knnQueryVector,
+            @Query("knn.k") int k,
+            @Query("knn.num_candidates") int numCandidates,
+            @Query("knn.rank.rrf.window_size") int windowSize,
+            @Query("knn.rank.rrf.rank_constant") int rankConstant
+    );
 }
+

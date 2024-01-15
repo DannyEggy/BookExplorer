@@ -14,14 +14,30 @@ public class SearchResultViewModel extends ViewModel {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private String query;
 
+    private String knnField;
+    private String knnQueryVector;
+
     public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, String query) {
         this.resultDetailsRepository = resultDetailsRepository;
         this.query = query;
     }
 
+    public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, CompositeDisposable compositeDisposable, String query, String knnField, String knnQueryVector) {
+        this.resultDetailsRepository = resultDetailsRepository;
+        this.compositeDisposable = compositeDisposable;
+        this.query = query;
+        this.knnField = knnField;
+        this.knnQueryVector = knnQueryVector;
+    }
+
     public MutableLiveData<SearchResult> getSearchResult(){
         return resultDetailsRepository.fetchSearchResult(query, compositeDisposable);
     }
+
+    public MutableLiveData<SearchResult> getHybridSearchResult(){
+        return resultDetailsRepository.fetchHybridSearchResult(query, knnField, knnQueryVector, compositeDisposable);
+    }
+
 
     public LiveData<NetworkState> getNetworkState(){
         return resultDetailsRepository.getResultDetailsNetworkState();

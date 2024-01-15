@@ -44,6 +44,32 @@ public class BookNetworkDataSource {
         return _searchResult;
     }
 
+
+    public void hybridSearch(String query, String knnField, String knnQueryVector){
+        _networkState.postValue(NetworkState.LOADING);
+        try{
+            compositeDisposable.add(
+                    elasticAPI.hybridSearch(query, knnField, knnQueryVector, 50, 100, 50, 20)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    searchResult -> {
+                                        _searchResult.postValue(searchResult);
+                                        _networkState.postValue(NetworkState.LOADED);
+                                    },
+                                    throwable -> {
+                                        Log.e("BookDetailsDataSource","Error: " + throwable.getMessage());
+                                        _networkState.postValue(NetworkState.ERROR);
+                                    }
+                            )
+            );
+        }catch (Exception e){
+            _networkState.postValue(new NetworkState(NetworkState.Status.FAILED, "Something went wrong!!!"));
+            Log.e("BookDetailsDataSource", e.getMessage());
+        }
+
+    }
+
     public void searchBooks(String query){
 
         _networkState.postValue(NetworkState.LOADING);
