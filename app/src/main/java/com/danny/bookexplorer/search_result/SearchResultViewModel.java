@@ -7,24 +7,25 @@ import androidx.lifecycle.ViewModel;
 import com.danny.bookexplorer.model.SearchResult;
 import com.danny.bookexplorer.repository.NetworkState;
 
+import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 public class SearchResultViewModel extends ViewModel {
     private ResultDetailsRepository resultDetailsRepository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private String query;
-
     private String knnField;
-    private String knnQueryVector;
+    private double[] knnQueryVector;
 
     public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, String query) {
         this.resultDetailsRepository = resultDetailsRepository;
         this.query = query;
     }
 
-    public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, CompositeDisposable compositeDisposable, String query, String knnField, String knnQueryVector) {
+    public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, String query, String knnField, double[] knnQueryVector) {
         this.resultDetailsRepository = resultDetailsRepository;
-        this.compositeDisposable = compositeDisposable;
+
         this.query = query;
         this.knnField = knnField;
         this.knnQueryVector = knnQueryVector;
@@ -42,6 +43,8 @@ public class SearchResultViewModel extends ViewModel {
     public LiveData<NetworkState> getNetworkState(){
         return resultDetailsRepository.getResultDetailsNetworkState();
     }
+
+
 
     @Override
     protected void onCleared() {
