@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.danny.bookexplorer.databinding.ActivityMainBinding;
 import com.danny.bookexplorer.model.SearchResult;
 
@@ -34,6 +37,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
+
+        if(!Python.isStarted()){
+            Python.start(new AndroidPlatform(this));
+        }
+
+        Python py = Python.getInstance();
+        PyObject pyObj = py.getModule("tokenizer");
+
+        PyObject object = pyObj.callAttr("main", "The Queen");
+
+        Toast.makeText(this, object.toString(), Toast.LENGTH_LONG).show();
+
+
+
+
+
+
+
 
 //        activityMainBinding.btn.setOnClickListener((View view)->{
 //            Intent intent = new Intent(this, SingleBook.class);
