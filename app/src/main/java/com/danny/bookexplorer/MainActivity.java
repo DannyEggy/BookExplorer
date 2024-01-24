@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -38,16 +39,20 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
+
+
         if(!Python.isStarted()){
             Python.start(new AndroidPlatform(this));
         }
 
         Python py = Python.getInstance();
+
+
         PyObject pyObj = py.getModule("tokenizer");
 
-        PyObject object = pyObj.callAttr("main", "The Queen");
 
-        Toast.makeText(this, object.toString(), Toast.LENGTH_LONG).show();
+
+
 
 
 
@@ -63,10 +68,14 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         activityMainBinding.hybridSearch.setOnClickListener((View view)->{
+            String query = activityMainBinding.etSearch.getText().toString();
+            PyObject object = pyObj.callAttr("main", query);
+//            Log.e("Result", object.toString());
+
             Intent intent = new Intent(this, SearchResultBooks.class);
-            intent.putExtra("query", "Prince");
+            intent.putExtra("query", query);
             intent.putExtra("knnField", "vector");
-            intent.putExtra("knnQueryVector", "The Queen");
+            intent.putExtra("knnQueryVector", object.toString());
 
 
 
