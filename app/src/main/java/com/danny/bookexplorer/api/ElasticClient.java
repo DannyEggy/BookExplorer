@@ -11,9 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ElasticClient {
     private static final String BASE_URL = "https://4163ed3b60ad431e9b7a565187950e51.us-central1.gcp.cloud.es.io:443";
-    private static final String CLOUD_ID = "d1f3e3a951a246f3b30888091e28866b:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDQxNjNlZDNiNjBhZDQzMWU5YjdhNTY1MTg3OTUwZTUxJDA5ZTgyMGQ3YzgwMDQ2M2Y4MGQ3Y2RiZjg5YWM5ZmYy";
+    private static final String CLOUD_ID = "ba33129799b54d9394d6041531f220b4:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQyY2UxMjA3MTgyMGQ0NmE4OWEyNmY0YzI0NTRkNDlkMyQ1N2I2ZTc5Mjc3OGM0Y2EyYjlhYTMwMzljNzMzMzU2Zg==";
     private static final String USERNAME = "elastic";
-    private static final String PASSWORD = "86844ZAb0EqM3HVYuKujd1qo";
+    private static final String PASSWORD = "F3135DmLkTuYYsvpFly1icFg";
 
     public static ElasticAPI elasticAPI;
 
