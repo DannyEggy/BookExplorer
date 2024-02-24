@@ -66,14 +66,34 @@ public class SearchResultBooks extends AppCompatActivity {
         detailsRepository = new ResultDetailsRepository(elasticAPI);
 
         Intent intent = getIntent();
-        queryHibrid = intent.getStringExtra("query");
-        knnField = intent.getStringExtra("knnField");
 
-        stringKnnQueryVector = intent.getStringExtra("knnQueryVector");
+        String type = intent.getStringExtra("type");
+        if(type.equals("hybridSearch")){
+            queryHibrid = intent.getStringExtra("query");
+            knnField = intent.getStringExtra("knnField");
+            stringKnnQueryVector = intent.getStringExtra("knnQueryVector");
+            double[] knnQueryVector = getVectorFromString(stringKnnQueryVector);
 
-        Log.d("Result stringKnn", stringKnnQueryVector);
+            viewModelHybridSearch = getHybridSearchResultViewModel(queryHibrid, knnField, knnQueryVector);
+            viewModelHybridSearch.getHybridSearchResult().observe(this, this::bindResultUI);
+            viewModelHybridSearch.getNetworkState().observe(this, networkState -> {
+                int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
+                binding.progressBarSearchResult.setVisibility(visibility);
+                binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
+            });
+        }else{
+            query = intent.getStringExtra("queryNormal");
+            viewModel = getSearchResultViewModel(query);
 
-        double[] knnQueryVector = getVectorFromString(stringKnnQueryVector);
+            viewModel.getSearchResult().observe(this, this::bindResultUI);
+            viewModel.getNetworkState().observe(this, networkState -> {
+                int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
+                binding.progressBarSearchResult.setVisibility(visibility);
+                binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
+            });
+        }
+
+
 
 
 
@@ -88,31 +108,11 @@ public class SearchResultBooks extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if(query.isEmpty()){
-
-        }else{
-            viewModel = getSearchResultViewModel(query);
-//
-//
-//
-//
-            viewModel.getSearchResult().observe(this, this::bindResultUI);
-            viewModel.getNetworkState().observe(this, networkState -> {
-                int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
-                binding.progressBarSearchResult.setVisibility(visibility);
-                binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
-            });
-        }
 
 
 
-        viewModelHybridSearch = getHybridSearchResultViewModel(queryHibrid, knnField, knnQueryVector);
-        viewModelHybridSearch.getHybridSearchResult().observe(this, this::bindResultUI);
-        viewModelHybridSearch.getNetworkState().observe(this, networkState -> {
-            int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
-            binding.progressBarSearchResult.setVisibility(visibility);
-            binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
-        });
+
+
 
 
     }
@@ -162,7 +162,7 @@ public class SearchResultBooks extends AppCompatActivity {
         // Loại bỏ các ký tự không cần thiết từ chuỗi
 
 
-        String cleanInput = knnQueryVector.replace("[ ", "").replace("]", "").replace("  ", " ");
+        String cleanInput = knnQueryVector.replace("[ ", "").replace("]", "").replace("  ", " ").replace("[","");
         String[] stringArray = cleanInput.split(" ");
         for (int i = 0; i < stringArray.length; i++) {
             stringArray[i] = stringArray[i].replace(" ", "");

@@ -6,7 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/progress_bar_start"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="@color/white"/>
 
 
 
@@ -19,7 +25,8 @@
         android:textSize="48sp"
         android:textColor="?attr/colorPrimary"
         android:layout_marginBottom="5dp"
-        android:layout_above="@+id/search_bar"/>
+        android:layout_above="@+id/search_bar"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/app_tag_title"
@@ -34,26 +41,28 @@
 
     <RelativeLayout
         android:id="@+id/search_bar"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:paddingBottom="20dp"
         >
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/btn_search"
+            android:layout_toLeftOf="@id/title_search"
             app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusTopEnd="0dp"
-            app:boxCornerRadiusBottomEnd="0dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusTopStart="16dp"
             app:boxStrokeColor="?attr/colorPrimary"
-
+            app:endIconMode="custom"
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="2dp"
             android:animateLayoutChanges="true"
             android:hint="Search"
-            app:endIconDrawable="@drawable/baseline_search_16"
+            app:endIconDrawable="@drawable/baseline_manage_search_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
 
@@ -63,27 +72,37 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:inputType="text"
+
             />
 
 
         </com.google.android.material.textfield.TextInputLayout>
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="5.3dp"
-            android:background="@drawable/rectangular_button_background"
-            android:text="Search" />
+
     </RelativeLayout>
+
+
 
     <Button
         android:id="@+id/hybrid_search"
-        android:layout_width="wrap_content"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_bar"
-        android:layout_centerHorizontal="true"
-        android:text="Use HybridSearch"/>
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:text="HybridSearch"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/title_search"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/search_bar"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:layout_marginEnd="30dp"
+        android:text="Search" />
+
+
 
     <ProgressBar
         android:id="@+id/progress_bar_popular"

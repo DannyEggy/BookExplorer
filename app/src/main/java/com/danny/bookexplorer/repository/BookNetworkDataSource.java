@@ -97,7 +97,7 @@ public class BookNetworkDataSource {
             searchRequest.setQuery(query);
 
             // Thiết lập truy vấn KNN
-            Knn knn = new Knn("vector", knnQueryVector, 50, 100);
+            Knn knn = new Knn("desc_vector", knnQueryVector, 50, 100);
             searchRequest.setKnn(knn);
 
             // Thiết lập rank
