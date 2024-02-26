@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -67,12 +69,15 @@
 
 
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/et_search"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:inputType="text"
+            android:layout_height="wrap_content"
 
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:paddingStart="15dp"
+            android:dropDownHeight="wrap_content"
             />
 
 

@@ -65,7 +65,7 @@
         android:hint="Description"
         app:endIconDrawable="@drawable/baseline_search_16">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edittext_search_dialog"
+            android:id="@+id/edittext_search_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -91,6 +91,7 @@
             android:layout_height="match_parent">
 
             <AutoCompleteTextView
+                android:id="@+id/page_count_gte"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +110,7 @@
             android:layout_height="match_parent">
 
             <AutoCompleteTextView
+                android:id="@+id/page_count_lte"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -134,6 +136,7 @@
             android:layout_height="match_parent">
 
             <AutoCompleteTextView
+                android:id="@+id/average_rating_gte"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -152,12 +155,20 @@
             android:layout_height="match_parent">
 
             <AutoCompleteTextView
+                android:id="@+id/average_rating_lte"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/advanced_search"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:layout_gravity="center"
+        />
 
 </LinearLayout>

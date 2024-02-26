@@ -66,6 +66,8 @@ public class SearchResultBooks extends AppCompatActivity {
         detailsRepository = new ResultDetailsRepository(elasticAPI);
 
         Intent intent = getIntent();
+        String type = intent.getStringExtra("type");
+        query = intent.getStringExtra("queryNormal");
         queryHibrid = intent.getStringExtra("query");
         knnField = intent.getStringExtra("knnField");
 
@@ -82,8 +84,14 @@ public class SearchResultBooks extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        if(query.isEmpty()){
-
+        if(type.equals("hybridSearch")){
+            viewModelHybridSearch = getHybridSearchResultViewModel(queryHibrid, knnField, knnQueryVector);
+            viewModelHybridSearch.getHybridSearchResult().observe(this, this::bindResultUI);
+            viewModelHybridSearch.getNetworkState().observe(this, networkState -> {
+                int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
+                binding.progressBarSearchResult.setVisibility(visibility);
+                binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
+            });
         }else{
             viewModel = getSearchResultViewModel(query);
 //
@@ -100,13 +108,7 @@ public class SearchResultBooks extends AppCompatActivity {
 
 
 
-        viewModelHybridSearch = getHybridSearchResultViewModel(queryHibrid, knnField, knnQueryVector);
-        viewModelHybridSearch.getHybridSearchResult().observe(this, this::bindResultUI);
-        viewModelHybridSearch.getNetworkState().observe(this, networkState -> {
-            int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
-            binding.progressBarSearchResult.setVisibility(visibility);
-            binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
-        });
+
 
 
     }

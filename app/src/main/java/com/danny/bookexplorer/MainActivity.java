@@ -2,44 +2,39 @@ package com.danny.bookexplorer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
+import com.danny.bookexplorer.autocomplete_adapter.AutoCompleteRecentSearch;
 import com.danny.bookexplorer.databinding.ActivityMainBinding;
 import com.danny.bookexplorer.databinding.DialogCustomSearchFullscreenBinding;
-import com.danny.bookexplorer.model.SearchResult;
 
-import com.danny.bookexplorer.repository.BookNetworkDataSource;
 import com.danny.bookexplorer.search_result.SearchResultBooks;
-import com.danny.bookexplorer.single_book.SingleBook;
 
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Vector;
+import java.util.Set;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import kotlin.collections.ArrayDeque;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -50,11 +45,26 @@ public class MainActivity extends AppCompatActivity {
 
     private PyObject pyObj;
 
-@Override
+    private List<String> recentSearchList = new ArrayList<String>();
+
+    private AutoCompleteRecentSearch recentSearch ;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        getRecentSearchList();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
+
+
+//
+//        recentSearch = new AutoCompleteRecentSearch(this, recentSearchList);
+//        activityMainBinding.etSearch.setAdapter(recentSearch);
 
 
         activityMainBinding.searchLayout.setEndIconOnClickListener((View view)->{
@@ -62,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
             showFullscreenDialog();
         });
 
+
+//        setupRecentSearchAutoComplete();
+
+//        activityMainBinding.etSearch.setOnClickListener((View view)->{
+//            activityMainBinding.etSearch.showDropDown();
+//
+//        });
 
 
         Disposable disposable = Observable.fromCallable(()->{
@@ -97,15 +114,23 @@ public class MainActivity extends AppCompatActivity {
 
         activityMainBinding.hybridSearch.setOnClickListener((View view)->{
             String query = activityMainBinding.etSearch.getText().toString();
+
+            //save to shared-preferences
+//            SharedPreferences sharedPreferences = getSharedPreferences("RECENT_SEARCH", MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            Set<String> data = getRecentSearch(this);
+//            editor.putStringSet("recent_search", data);
+//            editor.apply();
+
+
             PyObject object = pyObj.callAttr("main", query);
 //            Log.e("Result", object.toString());
 
             Intent intent = new Intent(this, SearchResultBooks.class);
             intent.putExtra("type", "hybridSearch");
             intent.putExtra("query", query);
-            intent.putExtra("knnField", "vector");
+            intent.putExtra("knnField", "desc_vector");
             intent.putExtra("knnQueryVector", object.toString());
-
 
 
 
@@ -120,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SearchResultBooks.class);
             intent.putExtra("type", "normalSearch");
             intent.putExtra("queryNormal", query);
+
             startActivity(intent);
         });
     }
@@ -154,11 +180,19 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
 
 
-            binding.edittextSearchDialog.requestFocus();
+            binding.edittextSearchTitle.requestFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(binding.edittextSearchDialog, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(binding.edittextSearchTitle, InputMethodManager.SHOW_IMPLICIT);
 
 
+
+            String[] options = {"1.0", "2.0", "3.0", "4.0", "5.0"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, options);
+            binding.pageCountGte.setAdapter(adapter);
+
+            binding.pageCountGte.setOnClickListener((View view)->{
+                binding.pageCountGte.showDropDown();
+            });
 
         }
 
@@ -173,4 +207,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public static Set<String> getRecentSearch(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("RECENT_SEARCH", Context.MODE_PRIVATE);
+        return preferences.getStringSet("recent_search", new HashSet<>());
+    }
+
+//    public void getRecentSearchList(){
+//        Set<String> recent = getRecentSearch(this);
+//        for(String title: recent){
+//            recentSearchList.add(0, title);
+//        }
+//        recentSearch.notifyDataSetChanged();
+//    }
+
+
 }
