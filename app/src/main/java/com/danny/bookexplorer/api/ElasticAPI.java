@@ -1,15 +1,14 @@
 package com.danny.bookexplorer.api;
 
 import com.danny.bookexplorer.model.Book;
-import com.danny.bookexplorer.model.SearchRequest;
+import com.danny.bookexplorer.model.search_request_1.SearchRequest;
 import com.danny.bookexplorer.model.SearchResult;
-
-import java.util.List;
+import com.danny.bookexplorer.model.search_request_2.SearchRequest2;
+//import com.danny.bookexplorer.model.search_request_2.Query;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -29,5 +28,10 @@ public interface ElasticAPI {
     Single<SearchResult> hybridSearch(
             @Body SearchRequest searchRequest
             );
+
+    @POST("books/_search")
+    Single<SearchResult> multipleSearch(
+            @Body SearchRequest2 searchRequest2
+    );
 }
 

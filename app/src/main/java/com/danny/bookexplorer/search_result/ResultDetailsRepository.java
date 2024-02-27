@@ -53,6 +53,14 @@ public class ResultDetailsRepository {
         return bookNetworkDataSource.searchResult();
     }
 
+    public MutableLiveData<SearchResult> fetchMultipleSearchResult(String queryTitle, String queryDesc, int pageCountGTE, int pageCountLTE,
+            double averageRatingGTE, double averageRatingLTE , CompositeDisposable compositeDisposable){
+        bookNetworkDataSource = new BookNetworkDataSource(elasticAPI, compositeDisposable);
+
+        bookNetworkDataSource.multipleSearch(queryTitle, queryDesc, pageCountGTE, pageCountLTE, averageRatingGTE, averageRatingLTE);
+        return bookNetworkDataSource.searchResult();
+    }
+
     public LiveData<NetworkState> getResultDetailsNetworkState(){
         return bookNetworkDataSource.networkState();
     }

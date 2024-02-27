@@ -54,7 +54,16 @@ public class SearchResultBooks extends AppCompatActivity {
     private SearchResultViewModel viewModel;
 
     private SearchResultViewModel viewModelHybridSearch;
+
+    private SearchResultViewModel viewModelMultipleSearch;
     private List<Hit> hitList;
+
+    private String queryTitle;
+    private String queryDesc;
+    private int pageCountGTE;
+    private int pageCountLTE;
+    private double averageRatingGTE;
+    private double averageRatingLTE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +79,13 @@ public class SearchResultBooks extends AppCompatActivity {
         query = intent.getStringExtra("queryNormal");
         queryHibrid = intent.getStringExtra("query");
         knnField = intent.getStringExtra("knnField");
+
+        queryTitle = intent.getStringExtra("queryTitle");
+        queryDesc = intent.getStringExtra("queryDesc");
+        pageCountGTE = intent.getIntExtra("pageCountGTE", 0);
+        pageCountLTE = intent.getIntExtra("pageCountLTE", 1000);
+        averageRatingGTE = intent.getDoubleExtra("averageRatingGTE", 1.0);
+        averageRatingLTE = intent.getDoubleExtra("averageRatingLTE", 5.0);
 
 //        knnQueryVector = intent.getStringExtra("knnQueryVector");
 
@@ -92,7 +108,16 @@ public class SearchResultBooks extends AppCompatActivity {
                 binding.progressBarSearchResult.setVisibility(visibility);
                 binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
             });
-        }else{
+        } else if (type.equals("multipleSearch")) {
+            viewModelMultipleSearch = getMultipleSearchResultViewModel(queryTitle, queryDesc,
+                    pageCountGTE, pageCountLTE, averageRatingGTE, averageRatingLTE);
+            viewModelMultipleSearch.getMultipleSearchResult().observe(this, this::bindResultUI);
+            viewModelMultipleSearch.getNetworkState().observe(this, networkState -> {
+                int visibility = (networkState == NetworkState.LOADING) ? View.VISIBLE : View.GONE;
+                binding.progressBarSearchResult.setVisibility(visibility);
+                binding.txtErrorSearchResult.setVisibility((networkState == NetworkState.ERROR) ? View.VISIBLE : View.GONE);
+            });
+        } else{
             viewModel = getSearchResultViewModel(query);
 //
 //
@@ -150,6 +175,20 @@ public class SearchResultBooks extends AppCompatActivity {
             @Override
             public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
                 return (T) new SearchResultViewModel(detailsRepository, query, knnField, knnQueryVector);
+            }
+        }).get(SearchResultViewModel.class);
+    }
+
+    public SearchResultViewModel getMultipleSearchResultViewModel(String queryTitle, String queryDesc,
+                                                                  int pageCountGTE, int pageCountLTE,
+                                                                  double averageRatingGTE, double averageRatingLTE) {
+        return new ViewModelProvider(this, new ViewModelProvider.Factory() {
+            @SuppressWarnings("unchecked")
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new SearchResultViewModel(detailsRepository, queryTitle, queryDesc, pageCountGTE,
+                        pageCountLTE, averageRatingGTE, averageRatingLTE);
             }
         }).get(SearchResultViewModel.class);
     }

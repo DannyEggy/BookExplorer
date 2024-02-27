@@ -2,11 +2,17 @@ package com.danny.bookexplorer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,6 +31,7 @@ import com.danny.bookexplorer.search_result.SearchResultBooks;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -157,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         compositeDisposable.clear();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showFullscreenDialog() {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -188,11 +196,241 @@ public class MainActivity extends AppCompatActivity {
 
             String[] options = {"1.0", "2.0", "3.0", "4.0", "5.0"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, options);
-            binding.pageCountGte.setAdapter(adapter);
 
-            binding.pageCountGte.setOnClickListener((View view)->{
-                binding.pageCountGte.showDropDown();
+//            binding.pageCountGte.setAdapter(adapter);
+//            binding.pageCountLte.setAdapter(adapter);
+//            binding.averageRatingGte.setAdapter(adapter);
+            binding.averageRatingLte.setAdapter(adapter);
+
+
+
+//            binding.pageCountGte.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                    binding.pageCountGte.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line ,options));
+//
+//                    InputMethodManager immPageCountGTE = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                    immPageCountGTE.hideSoftInputFromWindow(binding.pageCountGte.getWindowToken(), 0);
+//
+//                    binding.pageCountGte.showDropDown();
+//                    return true;
+//                }
+//            });
+//
+//            binding.pageCountGte.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                    binding.pageCountGte.setError(null);
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//                    if(binding.pageCountGte.getText().toString().equals("5.0")){
+//                        binding.pageCountLte.setText("5.0");
+//                    }
+//                }
+//            });
+//
+//
+//
+//            binding.pageCountLte.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                    int resultPageCountGTE = 0;
+//                    InputMethodManager immPageCountLTE = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                    immPageCountLTE.hideSoftInputFromWindow(binding.pageCountLte.getWindowToken(), 0);
+//                    if(binding.pageCountGte.getText().toString().isEmpty()){
+//                        resultPageCountGTE =0;
+//                    }else{
+//                        resultPageCountGTE =  (int)Double.parseDouble(binding.pageCountGte.getText().toString());
+//                    }
+//
+//
+//                    if(resultPageCountGTE !=0 && resultPageCountGTE <=5){
+//                        String[] updateString = removeOptionsHead(options, resultPageCountGTE);
+//                        binding.pageCountLte.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, updateString));
+//                    }
+//
+//
+//
+//
+//                    binding.pageCountLte.showDropDown();
+//                    return true;
+//                }
+//            });
+//
+//            binding.pageCountLte.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//                    binding.pageCountLte.setError(null);
+//                }
+//            });
+
+            binding.averageRatingGte.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    binding.averageRatingGte.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line ,options));
+
+                    InputMethodManager immAverageRatingGte = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    immAverageRatingGte.hideSoftInputFromWindow(binding.averageRatingGte.getWindowToken(), 0);
+                    binding.averageRatingGte.showDropDown();
+                    return true;
+                }
             });
+
+            binding.averageRatingGte.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    binding.averageRatingGte.setError(null);
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if(binding.averageRatingGte.getText().toString().equals("5.0")){
+                        binding.averageRatingLte.setText("5.0");
+                    }
+                }
+            });
+
+            binding.averageRatingLte.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    int resultAverageRatingGTE = 0;
+                    InputMethodManager immAverageRatingLte = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    immAverageRatingLte.hideSoftInputFromWindow(binding.averageRatingLte.getWindowToken(), 0);
+
+                    if(binding.averageRatingGte.getText().toString().isEmpty()){
+                        resultAverageRatingGTE =0;
+                    }else{
+                        resultAverageRatingGTE =  (int)Double.parseDouble(binding.averageRatingGte.getText().toString());
+                    }
+
+
+                    if(resultAverageRatingGTE !=0 && resultAverageRatingGTE <=5){
+                        String[] updateString = removeOptionsHead(options, resultAverageRatingGTE);
+                        binding.averageRatingLte.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, updateString));
+                    }
+
+
+
+                    binding.averageRatingLte.showDropDown();
+                    return true;
+                }
+            });
+
+            binding.averageRatingLte.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    binding.averageRatingLte.setError(null);
+                }
+            });
+
+
+            binding.advancedSearch.setOnClickListener((View view)->{
+                if(
+                    binding.averageRatingGte.getText().toString().isEmpty() ||
+                    binding.averageRatingLte.getText().toString().isEmpty()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Error")
+                            .setMessage("Something is missing!!!")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // Xử lý sự kiện khi nút "OK" được nhấn
+
+//                                    if(binding.pageCountGte.getText().toString().isEmpty()){
+//                                        binding.pageCountGte.setError("Error!!!");
+//                                    }
+//                                    if (binding.pageCountLte.getText().toString().isEmpty()) {
+//                                        binding.pageCountLte.setError("Error!!!");
+//                                    }
+                                    if (binding.averageRatingGte.getText().toString().isEmpty()) {
+                                        binding.averageRatingGte.setError("Error!!!");
+                                    }
+                                    if (binding.averageRatingLte.getText().toString().isEmpty()) {
+                                        binding.averageRatingLte.setError("Error!!!");
+                                    }
+
+
+
+                                    dialogInterface.dismiss(); // Đóng AlertDialog
+
+
+
+                                }
+                            })
+                            .show();
+
+
+
+                    return;
+                }
+
+
+//                int resultPageCountGTE = (int)Double.parseDouble(binding.pageCountGte.getText().toString());
+//                int resultPageCountLTE = (int)Double.parseDouble(binding.pageCountLte.getText().toString());
+                int resultAverageRatingGTE = (int)Double.parseDouble(binding.averageRatingGte.getText().toString());
+                int resultAverageRatingLTE = (int)Double.parseDouble(binding.averageRatingLte.getText().toString());
+
+
+//                if(resultPageCountGTE > resultPageCountLTE){
+//                    binding.pageCountGte.setError("Something is wrong here!!!");
+//                    return;
+//                }else{
+//                    binding.pageCountGte.setError(null);
+//                    binding.pageCountLte.setError(null);
+//                }
+
+                if(resultAverageRatingGTE > resultAverageRatingLTE){
+                    binding.averageRatingGte.setError("Something is wrong here!!!");
+                    return;
+                }else{
+                    binding.averageRatingGte.setError(null);
+                    binding.averageRatingLte.setError(null);
+                }
+
+                Intent intent = new Intent(getApplicationContext(), SearchResultBooks.class);
+                intent.putExtra("type", "multipleSearch");
+                intent.putExtra("queryTitle", binding.edittextSearchTitle.getText().toString());
+                intent.putExtra("queryDesc", binding.edittextSearchDesc.getText().toString());
+//                intent.putExtra("pageCountGTE", 1);
+//                intent.putExtra("pageCountLTE", 1000);
+                intent.putExtra("averageRatingGTE", Double.parseDouble(binding.averageRatingGte.getText().toString()));
+                intent.putExtra("averageRatingLTE", Double.parseDouble(binding.averageRatingLte.getText().toString()));
+                startActivity(intent);
+
+            });
+//
 
         }
 
@@ -210,6 +448,26 @@ public class MainActivity extends AppCompatActivity {
     public static Set<String> getRecentSearch(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("RECENT_SEARCH", Context.MODE_PRIVATE);
         return preferences.getStringSet("recent_search", new HashSet<>());
+    }
+
+    private static String[] removeOptionsHead(String[] options, int countToRemove) {
+
+        int newLength = Math.max(0, options.length - countToRemove);
+
+
+        String[] result = Arrays.copyOfRange(options, countToRemove, countToRemove + newLength);
+
+        return result;
+    }
+
+    private static String[] removeOptionsTail(String[] options, int countToRemove) {
+
+        int newLength = Math.max(0, options.length - countToRemove);
+
+
+        String[] result = Arrays.copyOfRange(options, 0, newLength);
+
+        return result;
     }
 
 //    public void getRecentSearchList(){

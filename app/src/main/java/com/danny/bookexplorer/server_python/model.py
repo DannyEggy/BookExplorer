@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-
+from android.content import Context
 
 
 def main(sentences):

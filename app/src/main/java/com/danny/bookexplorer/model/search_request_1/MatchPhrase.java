@@ -1,4 +1,4 @@
-package com.danny.bookexplorer.model;
+package com.danny.bookexplorer.model.search_request_1;
 
 import com.google.gson.annotations.SerializedName;
 

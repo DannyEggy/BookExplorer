@@ -3,40 +3,37 @@ package com.danny.bookexplorer.repository;
 
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.danny.bookexplorer.api.ElasticAPI;
-import com.danny.bookexplorer.api.ElasticClient;
-import com.danny.bookexplorer.api.huggingface.ModelAPI;
-import com.danny.bookexplorer.api.huggingface.ModelClient;
-import com.danny.bookexplorer.model.Book;
 import com.danny.bookexplorer.model.BookSource;
-import com.danny.bookexplorer.model.Knn;
-import com.danny.bookexplorer.model.MatchPhrase;
-import com.danny.bookexplorer.model.Query;
-import com.danny.bookexplorer.model.Rank;
-import com.danny.bookexplorer.model.Rrf;
-import com.danny.bookexplorer.model.SearchRequest;
+import com.danny.bookexplorer.model.search_request_1.Knn;
+import com.danny.bookexplorer.model.search_request_1.MatchPhrase;
+import com.danny.bookexplorer.model.search_request_1.Query;
+import com.danny.bookexplorer.model.search_request_1.Rank;
+import com.danny.bookexplorer.model.search_request_1.Rrf;
+import com.danny.bookexplorer.model.search_request_1.SearchRequest;
 import com.danny.bookexplorer.model.SearchResult;
+import com.danny.bookexplorer.model.search_request_2.AverageRating;
+import com.danny.bookexplorer.model.search_request_2.Bool;
+import com.danny.bookexplorer.model.search_request_2.Match;
+import com.danny.bookexplorer.model.search_request_2.Must;
+import com.danny.bookexplorer.model.search_request_2.PageCount;
+import com.danny.bookexplorer.model.search_request_2.Query2;
+import com.danny.bookexplorer.model.search_request_2.Range;
+import com.danny.bookexplorer.model.search_request_2.SearchRequest2;
 
-import java.util.Arrays;
-import java.util.List;
 
 //import co.elastic.clients.elasticsearch.ElasticsearchClient;
 //import co.elastic.clients.elasticsearch.core.SearchResponse;
 //import co.elastic.clients.elasticsearch.core.search.Hit;
 //import co.elastic.clients.elasticsearch.core.search.TotalHits;
 //import co.elastic.clients.elasticsearch.core.search.TotalHitsRelation;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class BookNetworkDataSource {
     private final ElasticAPI elasticAPI;
@@ -129,37 +126,47 @@ public class BookNetworkDataSource {
 
     }
 
-//    public void query(String data){
-////        ModelAPI modelAPI = ModelClient.getModelAPIClient();
-////        Call<double[]> call = modelAPI.query(data);
-////        final double[][] result = {{}};
-//
-////        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_LONG).show();
-//
-//        try{
-//            compositeDisposable.add(
-//                    modelAPI.query(data)
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe(
-//                                    doubles -> {
-//                                        _downloadVectorResponse.postValue(doubles);
-//
-//                                    },
-//                                    throwable -> {
-//                                        Log.e("Error Model", throwable.getMessage());
-//                                    }
-//                            )
-//            );
-//        }catch (Exception e){
-//
-//        }
-//
-//
-//
-//
-//
-//    }
+    public void multipleSearch(String queryTitle, String queryDesc, int pageCountGTE,
+                               int pageCountLTE, double averageRatingGTE, double averageRatingLTE){
+        _networkState.postValue(NetworkState.LOADING);
+        try{
+            SearchRequest2 searchRequest2 = new SearchRequest2();
+            Query2 query = new Query2();
+            Bool bool = new Bool();
+
+            MatchPhrase matchPhrase = new MatchPhrase();
+            matchPhrase.setTitle(queryTitle);
+            Match match = new Match();
+            match.setDesc(queryDesc);
+            Range range = new Range(new AverageRating(averageRatingGTE, averageRatingLTE));
+
+            Must[] must = new Must[]{new Must(matchPhrase), new Must(match), new Must(range)};
+            bool.setMust(must);
+            query.setBool(bool);
+            searchRequest2.setQuery(query);
+
+            compositeDisposable.add(
+                    elasticAPI.multipleSearch(searchRequest2)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    searchResult -> {
+                                        _searchResult.postValue(searchResult);
+                                        _networkState.postValue(NetworkState.LOADED);
+
+                                    },
+                                    throwable -> {
+                                        Log.e("BookDetailsDataSource","Error: " + throwable.getMessage());
+                                        _networkState.postValue(NetworkState.ERROR);
+                                    }
+                            )
+            );
+
+        }catch (Exception e){
+            _networkState.postValue(new NetworkState(NetworkState.Status.FAILED, "Something went wrong!!!"));
+            Log.e("BookDetailsDataSource Lỗi chỗ này nè", e.getMessage());
+        }
+    }
 
 
     public void searchBooks(String query){

@@ -72,50 +72,53 @@
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:paddingTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Page Count: From  "
+<!--    <LinearLayout-->
+<!--        android:paddingTop="5dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:orientation="horizontal">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="Page Count: From  "-->
 
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:gravity="center_vertical"/>
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"-->
+<!--            android:gravity="center_vertical"/>-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent">-->
 
-            <AutoCompleteTextView
-                android:id="@+id/page_count_gte"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/page_count_gte"-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="  To  "
+<!--                android:gravity="center"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:gravity="center_vertical"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="  To  "-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"-->
+<!--            android:gravity="center_vertical"/>-->
 
-            <AutoCompleteTextView
-                android:id="@+id/page_count_lte"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent">-->
 
-    </LinearLayout>
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/page_count_lte"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_height="match_parent"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:paddingTop="5dp"
@@ -138,6 +141,7 @@
             <AutoCompleteTextView
                 android:id="@+id/average_rating_gte"
                 android:layout_width="wrap_content"
+                android:gravity="center"
                 android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,6 +160,7 @@
 
             <AutoCompleteTextView
                 android:id="@+id/average_rating_lte"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>

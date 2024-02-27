@@ -18,6 +18,13 @@ public class SearchResultViewModel extends ViewModel {
     private String knnField;
     private double[] knnQueryVector;
 
+    private String queryTitle;
+    private String queryDesc;
+    private int pageCountGTE;
+    private int pageCountLTE;
+    private double averageRatingGTE;
+    private double averageRatingLTE;
+
     public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, String query) {
         this.resultDetailsRepository = resultDetailsRepository;
         this.query = query;
@@ -30,6 +37,24 @@ public class SearchResultViewModel extends ViewModel {
         this.knnField = knnField;
         this.knnQueryVector = knnQueryVector;
     }
+
+    public SearchResultViewModel(ResultDetailsRepository resultDetailsRepository, String queryTitle, String queryDesc,int pageCountGTE,
+                                 int pageCountLTE, double averageRatingGTE, double averageRatingLTE) {
+        this.resultDetailsRepository = resultDetailsRepository;
+
+        this.queryTitle = queryTitle;
+        this.queryDesc = queryDesc;
+        this.pageCountGTE = pageCountGTE;
+        this.pageCountLTE = pageCountLTE;
+        this.averageRatingGTE = averageRatingGTE;
+        this.averageRatingLTE = averageRatingLTE;
+    }
+
+    public MutableLiveData<SearchResult> getMultipleSearchResult(){
+        return resultDetailsRepository.fetchMultipleSearchResult(queryTitle, queryDesc, pageCountGTE, pageCountLTE,
+                averageRatingGTE, averageRatingLTE, compositeDisposable);
+    }
+
 
     public MutableLiveData<SearchResult> getSearchResult(){
         return resultDetailsRepository.fetchSearchResult(query, compositeDisposable);
