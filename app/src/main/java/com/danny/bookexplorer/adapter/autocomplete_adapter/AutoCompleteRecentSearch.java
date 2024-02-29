@@ -1,4 +1,4 @@
-package com.danny.bookexplorer.autocomplete_adapter;
+package com.danny.bookexplorer.adapter.autocomplete_adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

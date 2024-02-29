@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
-import com.danny.bookexplorer.autocomplete_adapter.AutoCompleteRecentSearch;
+import com.danny.bookexplorer.adapter.autocomplete_adapter.AutoCompleteRecentSearch;
 import com.danny.bookexplorer.databinding.ActivityMainBinding;
 import com.danny.bookexplorer.databinding.DialogCustomSearchFullscreenBinding;
 
@@ -41,7 +41,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import kotlin.collections.ArrayDeque;
 
 
 public class MainActivity extends AppCompatActivity {
