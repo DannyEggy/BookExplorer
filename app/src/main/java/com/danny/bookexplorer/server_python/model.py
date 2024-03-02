@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-from android.content import Context
+# from android.content import Context
 
 
 def main(sentences):
@@ -10,4 +10,4 @@ def main(sentences):
   embeddings = model.encode(sentences)
   return embeddings
 
-main("The Queen")
+print(str(main("Java")))

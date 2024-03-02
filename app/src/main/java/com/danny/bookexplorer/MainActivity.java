@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("query", query);
             intent.putExtra("knnField", "desc_vector");
             intent.putExtra("knnQueryVector", object.toString());
+//            intent.putExtra("knnQueryVector", object);
 
 
 
