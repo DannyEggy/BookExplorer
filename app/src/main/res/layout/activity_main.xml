@@ -89,7 +89,7 @@
 
     <Button
         android:id="@+id/hybrid_search"
-        android:layout_width="135dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_bar"
         android:layout_alignParentStart="true"
@@ -99,7 +99,7 @@
 
     <Button
         android:id="@+id/title_search"
-        android:layout_width="135dp"
+        android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_below="@+id/search_bar"
         android:layout_alignParentEnd="true"

@@ -17,21 +17,16 @@ public interface ElasticAPI {
     @GET("books/_doc/{book_id}")
     Single<Book> getBook(
 
-        @Path("book_id") String book_id
-    );
-
+        @Path("book_id") String book_id);
     @GET("books/_search")
     Single<SearchResult> searchBooks(
             @Query("q") String query);
-
     @POST("books/_search")
     Single<SearchResult> hybridSearch(
-            @Body SearchRequest searchRequest
-            );
+            @Body SearchRequest searchRequest);
 
     @POST("books/_search")
     Single<SearchResult> multipleSearch(
-            @Body SearchRequest2 searchRequest2
-    );
+            @Body SearchRequest2 searchRequest2);
 }
 
