@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Must {
     @SerializedName("match_phrase")
-    private MatchPhrase matchPhrase;
+    private MatchPhrase2 matchPhrase;
 
     @SerializedName("match")
     private Match match;
@@ -13,7 +13,7 @@ public class Must {
     @SerializedName("range")
     private Range range;
 
-    public Must(MatchPhrase matchPhrase) {
+    public Must(MatchPhrase2 matchPhrase) {
         this.matchPhrase = matchPhrase;
     }
 
@@ -25,11 +25,11 @@ public class Must {
         this.range = range;
     }
 
-    public MatchPhrase getMatchPhrase() {
+    public MatchPhrase2 getMatchPhrase() {
         return matchPhrase;
     }
 
-    public void setMatchPhrase(MatchPhrase matchPhrase) {
+    public void setMatchPhrase(MatchPhrase2 matchPhrase) {
         this.matchPhrase = matchPhrase;
     }
 

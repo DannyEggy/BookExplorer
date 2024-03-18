@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class MatchPhrase {
 
-    @SerializedName("title")
-    private String title;
+    @SerializedName("desc")
+    private String desc;
 
     // Getters and setters
 
-    public String getTitle() {
-        return title;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDesc(String title) {
+        this.desc = title;
     }
 }

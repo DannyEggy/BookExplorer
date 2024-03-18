@@ -19,6 +19,7 @@ import com.danny.bookexplorer.model.SearchResult;
 import com.danny.bookexplorer.model.search_request_2.AverageRating;
 import com.danny.bookexplorer.model.search_request_2.Bool;
 import com.danny.bookexplorer.model.search_request_2.Match;
+import com.danny.bookexplorer.model.search_request_2.MatchPhrase2;
 import com.danny.bookexplorer.model.search_request_2.Must;
 import com.danny.bookexplorer.model.search_request_2.PageCount;
 import com.danny.bookexplorer.model.search_request_2.Query2;
@@ -88,7 +89,7 @@ public class BookNetworkDataSource {
             // Thiết lập truy vấn cho title
             Query query = new Query();
             MatchPhrase matchPhrase = new MatchPhrase();
-            matchPhrase.setTitle(querySearch);
+            matchPhrase.setDesc(querySearch);
             query.setMatchPhrase(matchPhrase);
             searchRequest.setQuery(query);
 
@@ -133,7 +134,7 @@ public class BookNetworkDataSource {
             Query2 query = new Query2();
             Bool bool = new Bool();
 
-            MatchPhrase matchPhrase = new MatchPhrase();
+            MatchPhrase2 matchPhrase = new MatchPhrase2();
             matchPhrase.setTitle(queryTitle);
             Match match = new Match();
             match.setDesc(queryDesc);
