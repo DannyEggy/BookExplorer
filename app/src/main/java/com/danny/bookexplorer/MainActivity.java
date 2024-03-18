@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     activityMainBinding.searchBar.setVisibility(View.VISIBLE);
                     activityMainBinding.titleSearch.setVisibility(View.VISIBLE);
                     activityMainBinding.hybridSearch.setVisibility(View.VISIBLE);
+                    activityMainBinding.note1.setVisibility(View.VISIBLE);
+                    activityMainBinding.note2.setVisibility(View.VISIBLE);
                 });
 
 
