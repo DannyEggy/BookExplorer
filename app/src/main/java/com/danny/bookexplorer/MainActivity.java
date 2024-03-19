@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         activityMainBinding.searchLayout.setEndIconOnClickListener((View view)->{
-            Toast.makeText(this, "Clicked", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "Clicked", Toast.LENGTH_LONG).show();
             showFullscreenDialog();
         });
 
