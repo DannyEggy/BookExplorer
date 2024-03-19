@@ -1,3 +1,8 @@
+# File Data:  
+ - GoogleBookAPIDataset_EnglishBook.csv
+ - GoogleBookAPIDataset_VietnameseBook.csv 
+# File Code Mining VietnameseBook: 
+ - mining_vi_book.py
 # Overview of this Report
 
 This report delves into the refined search capabilities within Android applications, focusing on the implementation of Elastic Search:
