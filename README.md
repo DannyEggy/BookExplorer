@@ -3,6 +3,11 @@
  - GoogleBookAPIDataset_VietnameseBook.csv 
 # File Code Mining VietnameseBook: 
  - mining_vi_book.py
+
+# Cách chạy file source code Android:
+1. Truy cập file app/src/build.gradle 
+2. Dòng số 51 trong file: buildPython("C:/Program Files/Python311/python.exe")
+ -  => sửa đường dẫn tới Folder cài Python trên máy (VD: trên máy em thì nó nằm trong folder có đường dẫn trên)
 # Overview of this Report
 
 This report delves into the refined search capabilities within Android applications, focusing on the implementation of Elastic Search:
