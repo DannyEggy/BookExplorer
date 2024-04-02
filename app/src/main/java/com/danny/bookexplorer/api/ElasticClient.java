@@ -10,10 +10,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ElasticClient {
-    private static final String BASE_URL = "https://0ac38a544abf4aa4829730b6f59f1eaa.us-central1.gcp.cloud.es.io";
-    private static final String CLOUD_ID = "b1150c390a264b4aad50ec61924c2759:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQwYWMzOGE1NDRhYmY0YWE0ODI5NzMwYjZmNTlmMWVhYSQ4ODU3ODYzZGNlNTY0Nzg0OTdjNDFjMWE2MGI1ZTM0Nw==";
+    private static final String BASE_URL = "https://caf6f304f56b4c97ad96160471a672ce.us-central1.gcp.cloud.es.io";
+    private static final String CLOUD_ID = "24c5fb3dae6345d2907268eedd733f59:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyRjYWY2ZjMwNGY1NmI0Yzk3YWQ5NjE2MDQ3MWE2NzJjZSRhMjI5NDFlYWIxM2Q0NGVlOWMwNTMwNzYyY2YzMGVjZQ==";
     private static final String USERNAME = "elastic";
-    private static final String PASSWORD = "qb6HUcCRaLGOqJguXD19uM23";
+    private static final String PASSWORD = "RESqzXS6u3QqkDi8DL43Qr6S";
 
     public static ElasticAPI elasticAPI;
 
