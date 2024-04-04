@@ -10,10 +10,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ElasticClient {
-    private static final String BASE_URL = "https://caf6f304f56b4c97ad96160471a672ce.us-central1.gcp.cloud.es.io";
-    private static final String CLOUD_ID = "24c5fb3dae6345d2907268eedd733f59:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyRjYWY2ZjMwNGY1NmI0Yzk3YWQ5NjE2MDQ3MWE2NzJjZSRhMjI5NDFlYWIxM2Q0NGVlOWMwNTMwNzYyY2YzMGVjZQ==";
+    private static final String BASE_URL = "https://books.es.us-central1.gcp.cloud.es.io";
+    private static final String CLOUD_ID = "books:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQxMzcwNjM3Y2M0NmU0NWVmYmUzMTE4NmE5ZGIzMjE2ZSQxYmQwMDk5MmU3MGM0Zjk1OWQ4MTYzNDhjMjU5YTgwYQ==";
     private static final String USERNAME = "elastic";
-    private static final String PASSWORD = "RESqzXS6u3QqkDi8DL43Qr6S";
+    private static final String PASSWORD = "qenYghTAFgi3soV18PZc9Uvu";
 
     public static ElasticAPI elasticAPI;
 
